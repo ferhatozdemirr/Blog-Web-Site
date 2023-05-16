@@ -1,0 +1,95 @@
+﻿@model List<UserDto>
+
+
+
+
+<div class="container-xxl flex-grow-1 container-p-y">
+
+
+    <h4 class="fw-bold py-3 mb-4">
+        <span class="text-muted fw-light">Kullanıcı Yönetimi</span> Kullanıcılar
+    </h4>
+
+    <!-- Basic Bootstrap Table -->
+    <div class="card ">
+        <h5 class="card-header">
+            <a class="btn btn-primary float-end" asp-area="Admin" asp-controller="User" asp-action="Add">
+                Kullanıcı Ekle  <i class="bx bx-plus"></i>
+            </a>
+        </h5>
+        <div class="table-responsive text-nowrap m-4">
+
+
+
+            <table class="table table-bordered" id="userTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>İsim</th>
+                        <th>Soyİsim</th>
+                        <th>Email</th>
+                        <th>Telefon Numarası</th>
+                        <th>Rol</th>
+                        <th>Email Doğrulaması</th>
+                        <th>Bağlantı Hatları</th>
+                        <th>İşlemler</th>
+
+                    </tr>
+                </thead>
+                <tfoot>
+                    <tr>
+                        <th>İsim</th>
+                        <th>Soyİsim</th>
+                        <th>Email</th>
+                        <th>Telefon Numarası</th>
+                        <th>Rol</th>
+                        <th>Email Doğrulaması</th>
+                        <th>Bağlantı Hatları</th>
+                        <th>İşlemler</th>
+                    </tr>
+                </tfoot>
+                <tbody class="table-border-bottom-0">
+                    @foreach (var user in Model)
+                    {
+                        <tr name="@user.Id">
+
+                            <th>@user.FirstName</th>
+                            <th>@user.LastName</th>
+                            <th>@user.Email</th>
+                            <th>@user.PhoneNumber</th>
+                            <th>@user.Role</th>
+                            <th>@(user.EmailConfirmed ? "Doğrulanmış" : "Doğrulanmamış")</th>
+                            <th>@user.AccessFailedCount</th>
+                            <th>
+                                <a class="btn btn-success btn-sm" data-id="@user.Id" asp-area="Admin" asp-controller="User" asp-action="Update" asp-route-userId="@user.Id"><i class="bx bxs-edit ms-2"></i> </a>
+                                <a class="btn btn-danger btn-sm" data-id="@user.Id" asp-area="Admin" asp-controller="User" asp-action="Delete" asp-route-userId="@user.Id"><i class="bx bx-minus-circle ms-1"></i></a>
+
+
+
+
+                            </th>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <!--/ Basic Bootstrap Table -->
+</div>
+
+@section Scripts{
+    <script src="~/js/userIndex.js" type="application/ecmascript"></script>
+
+
+    @*Modal Scripti*@
+    @*  <script>
+        function clicked(e) {
+            if (!confirm('Silmek istediğinden emin misin?')) {
+                e.preventDefault();
+            }
+        }
+    </script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="~/web/alertify.min.js" />
+    <script src="~/js/site.js" asp-append-version="true"></script>*@
+
+  }

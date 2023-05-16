@@ -1,0 +1,89 @@
+﻿@using Blog.Entity.DTOs.Articles;
+@model List<ArticleDto>
+
+
+
+
+
+<div class="container-xxl flex-grow-1 container-p-y">
+
+
+    <h4 class="fw-bold py-3 mb-4">
+        <span class="text-muted fw-light">Çöp Kutusu</span> Makaleler
+    </h4>
+
+    <!-- Basic Bootstrap Table -->
+    <div class="card ">
+        
+        <div class="table-responsive text-nowrap m-4">
+
+
+
+            <table class="table table-bordered" id="articlesTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>Başlık</th>
+                        <th>Kategori</th>
+                        <th>Oluşturma Tarihi</th>
+                        <th>Oluşturan</th>
+                        <th>Durum</th>
+                        <th>İşlemler</th>
+
+                    </tr>
+                </thead>
+                <tfoot>
+                    <tr>
+                        <th>Başlık</th>
+                        <th>Kategori</th>
+                        <th>Oluşturma Tarihi</th>
+                        <th>Oluşturan</th>
+                        <th>Durum</th>
+                        <th>İşlemler</th>
+                    </tr>
+                </tfoot>
+                <tbody class="table-border-bottom-0">
+                    @foreach (var article in Model)
+                    {
+                        <tr name="@article.Id">
+
+                            <th>@article.Title</th>
+                            <th>@article.Category.Name</th>
+                            <th>@article.CreatedDate.ToShortDateString()</th>
+                            <th>@article.CreatedBy</th>
+                            <th>@(article.IsDeleted ? "Aktif Değil" : "Aktif")</th>
+                            <th>
+                                <a class="btn btn-warning btn-sm" data-id="@article.Id" asp-area="Admin" asp-controller="Article" asp-action="UndoDelete" asp-route-articleId="@article.Id"> Makaleyi Geri Yükle<i class="bx bx-undo ms-2"></i> </a>
+                                @*<a class="btn btn-danger btn-sm" data-id="@article.Id" asp-area="Admin" asp-controller="Article" asp-action="Delete" asp-route-articleId="@article.Id" onclick="return confirm('Silmek istediğinden emin misin?')">Sil <i class="bx bx-minus-circle ms-1"></i></a>*@
+
+
+
+
+                            </th>
+                        </tr>
+                    }
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <!--/ Basic Bootstrap Table -->
+
+</div>
+
+@section Scripts{
+    <script src="~/js/articlesIndex.js" type="application/ecmascript"></script>
+
+
+    @*Modal Scripti*@
+    <script>
+        function clicked(e) {
+            if (!confirm('Silmek istediğinden emin misin?')) {
+                e.preventDefault();
+            }
+        }
+    </script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="~/web/alertify.min.js" />
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
+  }
